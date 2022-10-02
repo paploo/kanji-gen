@@ -151,7 +151,7 @@ window.Kanji =  {
   },
 
   _load: function() {
-    $.getJSON('data/kanji.json', function(data) {
+    $.getJSON('data/kanji_gen.json', function(data) {
       $.each( data.kanji, function( i, kanji ) {
         var $category = Kanji.$kanjiSelectionBox.find('[data-category="'+ kanji.category +'"] .category-content');
 	      Kanji._setKanjiCategory(kanji);

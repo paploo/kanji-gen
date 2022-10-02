@@ -13,7 +13,7 @@ python -m http.server --cgi 8080
 Below are some screenshots of basic usage, along with a screenshot of the WaniKani.com API integration.
 
 ### Kanji Selection:
-The Kanji are divided into different categories. As of right now I have JLPT N1-N5, and WaniKani integration. It's very simple to add more categories and kanji by just extending the `kanji.json` file. 
+The Kanji are divided into different categories. As of right now I have JLPT N1-N5, and WaniKani integration. It's very simple to add more categories and kanji by just extending the `kanji_gen.json` file. 
 ![Screenshot](http://i.imgur.com/1Taf26N.png)
 
 ### Stroke Orders
