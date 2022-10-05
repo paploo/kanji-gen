@@ -91,19 +91,20 @@ window.Kanji =  {
     Kanji.$contentBox.append($kanjiRow);
   },
 
-  _setKanjiCategory: function(kanji) {
-    var $categoryBox = Kanji.$kanjiSelectionBox.find('[data-category="'+ kanji.category +'"] .category-content');
+  _setKanjiCategory: function(kanji, category = kanji.category) {
+    var $categoryBox = Kanji.$kanjiSelectionBox.find('[data-category="'+ category +'"] .category-content');
 
-    if (kanji.subCategory) {
-      var $subCategory = $categoryBox.find('[data-subcategory="' + kanji.subCategory + '"]');
+    var subCategory = kanji.subCategory
+    if (subCategory) {
+      var $subCategory = $categoryBox.find('[data-subcategory="' + subCategory + '"]');
       var subCategorySet = $subCategory.length;
 
       if(!subCategorySet) {
         var $subCategory      = $(Kanji.SUBCATEGORY_TEMPLATE);
         var $subCategoryTitle = $subCategory.find('.subcategory-title');
 
-        $subCategory.attr('data-subcategory', kanji.subCategory);
-        $subCategoryTitle.text(kanji.subCategory);
+        $subCategory.attr('data-subcategory', subCategory);
+        $subCategoryTitle.text(subCategory);
         $categoryBox.prepend($subCategory);
       };
 
@@ -124,7 +125,7 @@ window.Kanji =  {
       'data-character': kanji.character,
       'data-meaning':   kanji.meaning,
       'data-onyomi':    kanji.onyomi,
-      'data-kunyomi':   kanji.kunyomi
+      'data-kunyomi':   kanji.kunyomi,
     });
 
     $kanjiSelector.text(kanji.character);
@@ -135,9 +136,12 @@ window.Kanji =  {
     var $kanjiSubmit = $('.kanjiSubmit');
 
     $kanjiSubmit.on('click', function() {
-      var kanji = $kanjiSearch.val();
-
-      Kanji._searchKanji(kanji);
+      var kanjis = $kanjiSearch.val();
+      console.log(kanjis);
+      for (const kanji of kanjis) {
+        console.log(kanji);
+        Kanji._searchKanji(kanji);
+      }
     });
   },
 
@@ -155,6 +159,12 @@ window.Kanji =  {
       $.each( data.kanji, function( i, kanji ) {
         var $category = Kanji.$kanjiSelectionBox.find('[data-category="'+ kanji.category +'"] .category-content');
 	      Kanji._setKanjiCategory(kanji);
+        
+        //TODO: Delegate to funciton to make list; eventually put in json
+        //TODO: Fix bad highlighting if same kanji in two places
+        // if(kanji.character == '人') {
+        //   Kanji._setKanjiCategory(kanji, 'favorites');
+        // }
       });
     }).done(function(){
       Kanji._handleKanjiSelection();
